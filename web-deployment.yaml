@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+  namespace: dev # Will be parameterized for different envs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: web-app-container
+        image: clusterstar/webapp:latest # This tag will be dynamic in the pipeline
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: web-app-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app-service
+  namespace: dev
+spec:
+  selector:
+    app: web-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: ClusterIP

@@ -1,0 +1,27 @@
+replicaCount: 1
+
+image:
+  repository: clusterstar/project-wordpress-application
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30135  # You can access WordPress via this port
+
+ingress:
+  enabled: false  # disable ingress for now to avoid nil pointer error
+
+mariadb:
+  auth:
+    rootPassword: rootpassword
+    password: userpassword
+    username: wordpress
+    database: wordpress
+  primary:
+    persistence:
+      enabled: false  # disable PVC for now to simplify
+
+persistence:
+  enabled: false  # disable WordPress PVC for now

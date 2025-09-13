@@ -1,0 +1,10 @@
+kubectl get svc -A
+NAMESPACE     NAME                          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                  AGE
+default       kubernetes                    ClusterIP   10.96.0.1        <none>        443/TCP                  2d21h
+dev           my-app-my-app-chart           ClusterIP   10.101.195.104   <none>        80/TCP                   87m
+jenkins       my-jenkins                    NodePort    10.101.91.186    <none>        8080:31995/TCP           24h
+jenkins       my-jenkins-agent              ClusterIP   10.110.254.214   <none>        50000/TCP                24h
+kube-system   kube-dns                      ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP,9153/TCP   2d21h
+prod          my-app-prod-my-app-chart      ClusterIP   10.100.14.11     <none>        80/TCP                   67m
+qa            my-app-qa-my-app-chart        ClusterIP   10.103.245.255   <none>        80/TCP                   72m
+staging       my-app-staging-my-app-chart   ClusterIP   10.98.82.96      <none>        80/TCP                   72m

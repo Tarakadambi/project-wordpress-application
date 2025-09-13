@@ -1,0 +1,11 @@
+kubectl get namespaces
+NAME              STATUS   AGE
+default           Active   2d21h
+dev               Active   24h
+jenkins           Active   24h
+kube-node-lease   Active   2d21h
+kube-public       Active   2d21h
+kube-system       Active   2d21h
+prod              Active   24h
+qa                Active   24h
+staging           Active   24h
