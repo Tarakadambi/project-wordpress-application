@@ -1,0 +1,2 @@
+ubuntu@ip-172-31-36-226:~/project-wordpress-application$ kubectl get pod -n jenkins my-jenkins-0 -o jsonpath='{.status.phase}'
+Runningubuntu@ip-172-31-36-226:~/project-wordpress-application$

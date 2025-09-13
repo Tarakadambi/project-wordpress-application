@@ -1,0 +1,87 @@
+pipeline {
+    agent any
+    environment {
+        DOCKERHUB_CREDS = credentials('dockerhub-creds')
+        REGISTRY = 'yourdockerusername'
+        APP_NAME = 'myapp'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'develop', credentialsId: 'github-creds', url: 'https://github.com/your-username/app-repo.git'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    dockerImage = docker.build("$REGISTRY/$APP_NAME:${env.BUILD_NUMBER}")
+                }
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh 'echo "Running unit tests..."'
+                // sh 'npm test' // Example test command
+            }
+        }
+        stage('Push Image') {
+            steps {
+                script {
+                    docker.withRegistry('', DOCKERHUB_CREDS) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+        stage('Deploy to Dev') {
+            steps {
+                script {
+                    // Deploy to dev namespace using the image we just built
+                    sh "helm upgrade --install my-app ./my-app-chart --namespace dev --set image.tag=${env.BUILD_NUMBER}"
+                }
+            }
+        }
+        stage('Deploy to QA') {
+            steps {
+                script {
+                    // Deploy the SAME image to QA
+                    sh "helm upgrade --install my-app ./my-app-chart --namespace qa --set image.tag=${env.BUILD_NUMBER}"
+                }
+            }
+        }
+        stage('Deploy to Staging') {
+            steps {
+                script {
+                    // Deploy the SAME image to staging
+                    sh "helm upgrade --install my-app ./my-app-chart --namespace staging --set image.tag=${env.BUILD_NUMBER}"
+                }
+            }
+        }
+        stage('Deploy to PROD') {
+            when {
+                branch 'master'
+            }
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    input message: "Deploy to PROD?", ok: "Yes"
+                }
+                script {
+                    // Deploy to prod namespace
+                    sh "helm upgrade --install my-app ./my-app-chart --namespace prod --set image.tag=${env.BUILD_NUMBER}"
+                }
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Cleaning up workspace...'
+            deleteDir()
+        }
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}

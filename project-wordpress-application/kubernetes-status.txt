@@ -1,0 +1,73 @@
+=== CI/CD PIPELINE SUCCESSFULLY DEPLOYED ===
+Deployed by: Tarama Vanur
+Date: Wed Sep 10 14:58:17 UTC 2025
+
+=== KUBERNETES PODS STATUS ===
+NAMESPACE     NAME                                          READY   STATUS             RESTARTS        AGE
+default       test                                          0/1     CrashLoopBackOff   101 (64s ago)   24h
+dev           my-app-my-app-chart-7c97bd84b5-trb8z          1/1     Running            0               51m
+jenkins       my-jenkins-0                                  2/2     Running            2 (17h ago)     18h
+kube-system   coredns-674b8bbfcf-wskqg                      1/1     Running            4 (17h ago)     2d21h
+kube-system   etcd-minikube                                 1/1     Running            4 (17h ago)     2d21h
+kube-system   kube-apiserver-minikube                       1/1     Running            5 (59m ago)     2d21h
+kube-system   kube-controller-manager-minikube              1/1     Running            4 (17h ago)     2d21h
+kube-system   kube-proxy-cpcph                              1/1     Running            4 (17h ago)     2d21h
+kube-system   kube-scheduler-minikube                       1/1     Running            4 (17h ago)     2d21h
+kube-system   storage-provisioner                           1/1     Running            11 (57m ago)    2d21h
+prod          my-app-prod-my-app-chart-b9b9cc8d9-5zxdl      1/1     Running            0               31m
+prod          my-app-prod-my-app-chart-b9b9cc8d9-c96g2      1/1     Running            0               31m
+prod          my-app-prod-my-app-chart-b9b9cc8d9-z482f      1/1     Running            0               31m
+qa            my-app-qa-my-app-chart-74bcc86b9b-tgv89       1/1     Running            0               35m
+staging       my-app-staging-my-app-chart-9c589657c-r2zsv   1/1     Running            0               35m
+
+=== HELM DEPLOYMENTS ===
+NAME          	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART             	APP VERSION
+my-app        	dev      	1       	2025-09-10 14:06:49.814045514 +0000 UTC	deployed	my-app-chart-0.1.0	1.16.0     
+my-app-prod   	prod     	1       	2025-09-10 14:27:16.808142582 +0000 UTC	deployed	my-app-chart-0.1.0	1.16.0     
+my-app-qa     	qa       	1       	2025-09-10 14:22:20.432665856 +0000 UTC	deployed	my-app-chart-0.1.0	1.16.0     
+my-app-staging	staging  	1       	2025-09-10 14:22:21.158818089 +0000 UTC	deployed	my-app-chart-0.1.0	1.16.0     
+my-jenkins    	jenkins  	3       	2025-09-09 20:06:05.80110112 +0000 UTC 	deployed	jenkins-5.8.86    	2.516.2    
+
+=== DOCKER IMAGES ===
+yourdockerusername/wordpress-app            latest         f74ba6f44dc2   25 hours ago    730MB
+clusterstar/project-wordpress-application   latest         114d21ab4b7f   25 hours ago    730MB
+clusterstar/project-wordpress-application   <none>         de751a5ff749   2 days ago      730MB
+
+=== NETWORK SERVICES ===
+NAMESPACE     NAME                          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                  AGE
+default       kubernetes                    ClusterIP   10.96.0.1        <none>        443/TCP                  2d21h
+dev           my-app-my-app-chart           ClusterIP   10.101.195.104   <none>        80/TCP                   51m
+jenkins       my-jenkins                    NodePort    10.101.91.186    <none>        8080:31995/TCP           24h
+jenkins       my-jenkins-agent              ClusterIP   10.110.254.214   <none>        50000/TCP                24h
+kube-system   kube-dns                      ClusterIP   10.96.0.10       <none>        53/UDP,53/TCP,9153/TCP   2d21h
+prod          my-app-prod-my-app-chart      ClusterIP   10.100.14.11     <none>        80/TCP                   31m
+qa            my-app-qa-my-app-chart        ClusterIP   10.103.245.255   <none>        80/TCP                   36m
+staging       my-app-staging-my-app-chart   ClusterIP   10.98.82.96      <none>        80/TCP                   35m
+
+=== NAMESPACES ===
+NAME              STATUS   AGE
+default           Active   2d21h
+dev               Active   24h
+jenkins           Active   24h
+kube-node-lease   Active   2d21h
+kube-public       Active   2d21h
+kube-system       Active   2d21h
+prod              Active   24h
+qa                Active   24h
+staging           Active   24h
+
+=== JENKINS STATUS ===
+Jenkins Pod Status: Running
+Jenkins Ready: true
+
+=== APPLICATION DEPLOYED ACROSS 4 ENVIRONMENTS ===
+- DEVELOPMENT: my-app-my-app-chart-7c97bd84b5-trb8z (Running)
+- QA: my-app-qa-my-app-chart-74bcc86b9b-tgv89 (Running)
+- STAGING: my-app-staging-my-app-chart-9c589657c-r2zsv (Running)
+- PRODUCTION: my-app-prod-my-app-chart-b9b9cc8d9-* (3 replicas Running)
+
+=== DOCKERHUB SUCCESS ===
+Image successfully pushed to: clusterstar/project-wordpress-application:latest
+
+=== GITHUB REPOSITORY ===
+Code available at: https://github.com/Tarakadambi/project-wordpress-application

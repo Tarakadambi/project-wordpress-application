@@ -1,0 +1,4 @@
+docker images | grep -E "(clusterstar|wordpress)"
+yourdockerusername/wordpress-app            latest         f74ba6f44dc2   25 hours ago    730MB
+clusterstar/project-wordpress-application   latest         114d21ab4b7f   25 hours ago    730MB
+clusterstar/project-wordpress-application   <none>         de751a5ff749   2 days ago      730MB
