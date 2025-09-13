@@ -1,0 +1,41 @@
+image:
+  repository: clusterstar/project-wordpress-application
+  tag: latest
+  pullPolicy: Always
+
+wordpressUsername: admin
+wordpressPassword: admin123
+wordpressEmail: admin@example.com
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30135
+
+ingress:
+  enabled: false
+
+mariadb:
+  enabled: true
+  auth:
+    rootPassword: root123
+    password: secret123
+    database: wordpress
+    username: wpuser
+
+persistence:
+  enabled: true
+  size: 10Gi
+  storageClass: ""
+
+serviceAccount:
+  create: true
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+
+replicaCount: 1
+
